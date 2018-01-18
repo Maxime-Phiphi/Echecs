@@ -1,6 +1,6 @@
+import damier.Damier;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 
 class FenetreJeu extends Fenetre{
