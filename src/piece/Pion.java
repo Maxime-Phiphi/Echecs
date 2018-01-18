@@ -28,7 +28,7 @@ public class Pion extends Piece {
     @Override
     public boolean[][] checkCase(Piece p, boolean[][] verif) {
         if (p.getCouleur()=="B"){
-            if (p.tabPiece[p.getX()][p.getY() - 1] == null) verif[p.getX()][p.getY() - 1] = true;
+            if (p.tabPiece[p.getY() - 1] == null) verif[p.getX()][p.getY() - 1] = true;
             else if (p.tabPiece[p.getX() - 1][p.getY() - 1] != null) verif[p.getX() - 1][p.getY() - 1] = true;
             else if (p.tabPiece[p.getX() + 1][p.getY() - 1] != null) verif[p.getX() + 1][p.getY() - 1] = true;
             if (p.getY() == 6) verif[p.getX()][p.getY() - 2] = true;

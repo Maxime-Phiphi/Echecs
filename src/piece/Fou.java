@@ -25,7 +25,7 @@ public class Fou extends Piece {
 
     @Override
     public boolean[][] checkCase(Piece p, boolean[][] verif) {
-        if (p.getCouleur()=="B") {
+        if (Objects.equals(p.getCouleur(), "B")) {
             int x = p.getX();
             int y = p.getY();
             int g = 0;
