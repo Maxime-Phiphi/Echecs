@@ -38,7 +38,7 @@ public abstract class Case {
                 this.couleur = Color.white;
             }
             else {
-                this.couleur = Color.black;
+                this.couleur = Color.gray;
             }
         }
     }

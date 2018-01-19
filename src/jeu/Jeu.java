@@ -18,6 +18,8 @@ public class Jeu extends JPanel implements MouseListener {
     private ArrayList<Piece> listPiece = new ArrayList<>();
     private Damier d = new Damier();
     private Piece p;
+    boolean[][] verif= new boolean[8][8];
+
 
     public Jeu() {
         setOpaque(false);
@@ -112,7 +114,6 @@ public class Jeu extends JPanel implements MouseListener {
 
             int x = (e.getX()-50)/75;
             int y = (e.getY()-50)/75;
-            boolean[][] verif = new boolean[8][8];
             Case c = d.getCaseAt(x,y);
 
             if (c.isOccupe()) { // Si on clique sur une piece
@@ -121,7 +122,7 @@ public class Jeu extends JPanel implements MouseListener {
                 paintDeplacement(verif);
             }
 
-            else if (!c.isOccupe() &&  verif[x][y]){ // si on clique sur une case verte
+            else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte
                   listPiece.remove(p);
                   p.setPosition(x,y);
                 System.out.println(p.getX());
@@ -129,7 +130,7 @@ public class Jeu extends JPanel implements MouseListener {
                   listPiece.add(p);
                   d.setCasesOccupees(listPiece);
                   paintDeplacement(verif);
-                  paintComponent(getGraphics());
+                  repaint();
             }
 
 //			System.out.println(piece.getNom());
@@ -139,7 +140,7 @@ public class Jeu extends JPanel implements MouseListener {
 
             //Pion p1 = new Pion(x, y, "B");
 
-            repaint();
+//            repaint();
         }
 
     }
