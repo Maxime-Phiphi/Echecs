@@ -1,5 +1,7 @@
 package piece;
 
+import damier.Damier;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +9,8 @@ import java.util.Objects;
 
 public class Pion extends Piece {
 
-    public Pion(int x, int y,  String couleur) {
-        super("P" + couleur, x, y,couleur);
+    public Pion(int x, int y,  String couleur, Damier d) {
+        super("P" + couleur, x, y,couleur, d);
         try {
             if(Objects.equals(couleur, "B"))
                 this.setImg(ImageIO.read(new File("img/pb.png")));
@@ -26,18 +28,28 @@ public class Pion extends Piece {
 
 
     @Override
-    public boolean[][] checkCase(Piece p, boolean[][] verif) {
-        if (Objects.equals(p.getCouleur(), "B")){
-            if (p.tabPiece[p.getY() - 1] == null) verif[p.getX()][p.getY() - 1] = true;
-            else if (p.tabPiece[p.getX() - 1][p.getY() - 1] != null) verif[p.getX() - 1][p.getY() - 1] = true;
-            else if (p.tabPiece[p.getX() + 1][p.getY() - 1] != null) verif[p.getX() + 1][p.getY() - 1] = true;
-            if (p.getY() == 6) verif[p.getX()][p.getY() - 2] = true;
+    public boolean[][] checkCase() {
+        boolean[][] verif = new boolean[8][8];
+        if (Objects.equals(getCouleur(), "B")){
+
+            if (!d.getCaseAt(getX(),getY()-1).isOccupe()) // si y a personne au dessus de lui
+                verif[getX()][getY() - 1] = true; //il peut y aller
+            else if (d.getCaseAt(getX()-1,getY()-1).isOccupe()) //si y a quelqu'un dans la diagonale a gauche
+                verif[getX() - 1][getY() - 1] = true;
+            else if (d.getCaseAt(getX()+ 1,getY()-1).isOccupe()) // diago droite
+                verif[getX() + 1][getY() - 1] = true;
+            if (getY() == 6) // si c'est son premier coup il peut avancer de 2
+                verif[getX()][getY() - 2] = true;
         }
         else {
-            if (p.tabPiece[p.getX()][p.getY() + 1] == null) verif[p.getX()][p.getY() + 1] = true;
-            else if (p.tabPiece[p.getX() - 1][p.getY() + 1] != null) verif[p.getX() - 1][p.getY() + 1] = true;
-            else if (p.tabPiece[p.getX() + 1][p.getY() + 1] != null) verif[p.getX() + 1][p.getY() + 1] = true;
-            if (p.getY() == 1) verif[p.getX()][p.getY() + 2] = true;
+            if (!d.getCaseAt(getX(),getY()+1).isOccupe()) // si y a personne au dessus de lui
+                verif[getX()][getY() + 1] = true; //il peut y aller
+            else if (d.getCaseAt(getX()-1,getY()+1).isOccupe()) //si y a quelqu'un dans la diagonale a gauche
+                verif[getX() - 1][getY() + 1] = true;
+            else if (d.getCaseAt(getX()+1,getY()+ 1).isOccupe()) // diago droite
+                verif[getX() + 1][getY() + 1] = true;
+            if (getY() == 1) // si c'est son premier coup il peut avancer de 2
+                verif[getX()][getY() + 2] = true;
         }
         return verif;
     }

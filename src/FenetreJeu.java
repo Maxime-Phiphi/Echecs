@@ -1,15 +1,16 @@
 import damier.Damier;
+import jeu.Jeu;
 
 import javax.swing.*;
 import java.io.IOException;
 
 class FenetreJeu extends Fenetre{
 
-		private Damier d = new Damier();
+		private Jeu j = new Jeu();
 		private JPanel container = new JPanel();
 		
 		public FenetreJeu() throws IOException{
-			container.add(d);
+			container.add(j);
 			container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 			
 			super.setContentPane(container);

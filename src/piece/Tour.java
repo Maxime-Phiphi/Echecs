@@ -1,5 +1,7 @@
 package piece;
 
+import damier.Damier;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +9,8 @@ import java.util.Objects;
 
 public class Tour extends Piece {
 
-    public Tour(int x, int y, String couleur) {
-        super("T" + couleur, x, y, couleur);
+    public Tour(int x, int y, String couleur, Damier d) {
+        super("T" + couleur, x, y, couleur, d);
 
         try {
             if(Objects.equals(couleur, "B"))
@@ -26,7 +28,7 @@ public class Tour extends Piece {
     }
 
     @Override
-    public boolean[][] checkCase(Piece p, boolean[][] verif) {
+    public boolean[][] checkCase() {
         return new boolean[0][];
     }
 }

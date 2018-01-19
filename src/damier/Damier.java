@@ -9,18 +9,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Damier extends JPanel implements MouseListener{
+public class Damier {
 
-	private static final int TAILLE =8;
-	private Jeu jeu = new Jeu();
+	public static final int TAILLE =8;
 	private boolean[][] checkDeplacement = new boolean[8][8];
 	private ArrayList<Case> ListCase = new ArrayList<>();
 
 	
 	public Damier() {
-		setOpaque(false);
-		setLayout(new BorderLayout());
-		this.addMouseListener(this);
+
 		initDamier();
 	}
 
@@ -43,16 +40,29 @@ public class Damier extends JPanel implements MouseListener{
             }
         }
     }
+    public Case getCaseAt (int x, int y){
+        for (Case c: ListCase) {
+            if (c.getY()==y && c.getX()==x){
+                return c;
+            }
+        }
+        return null;
+    }
 
+    public void setCasesOccupees(ArrayList<Piece> listPiece) {
+        for (Case c : ListCase) {
+            for (Piece p : listPiece) {
+               if (c.getX() == p.getX() && c.getY() == p.getY()){
+                   c.setOccupe(true);
+               }
+            }
+        }
+    }
 
 	public void paintComponent(Graphics g){
         for (Case c : ListCase){
             c.paintComponent(g);
         }
-        for (Piece p : jeu.getListPiece()) {
-            p.paintComponent(g);
-        }
-
 	}
 	
 	public void choixCase(int x, int y) {
@@ -60,53 +70,6 @@ public class Damier extends JPanel implements MouseListener{
 
 //		   checkDeplacement = jeu.getPiece(x,y).checkCase(jeu.getPiece(x,y),checkDeplacement);
 
-	}
-	
-	
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-
-		if(e.getButton()==1){
-
-//			int x = (e.getX()-50)/COTECASE;
-//			int y = (e.getY()-50)/COTECASE;
-//
-//			Piece piece = jeu.getPiece(x,y);
-//			System.out.println(piece.getNom());
-//			System.out.println(x+" "+y);
-//			choixCase(x,y);
-			
-			
-			//Pion p1 = new Pion(x, y, "B");
-			
-			repaint();
-		}
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
