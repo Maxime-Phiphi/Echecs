@@ -28,6 +28,20 @@ public class Roi extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-        return new boolean[0][];
+        boolean[][] verif = new boolean[8][8];
+        
+        if(getY()>1) verif[getX()][getY() - 1] = true; 
+        if(getY()<7) verif[getX()][getY() + 1] = true;
+        if(getX()>1) verif[getX()-1][getY()] = true; 
+        if(getX()<7) verif[getX()+1][getY()] = true;
+        if(getX()>1&&getY()>1) verif[getX()-1][getY() - 1] = true; 
+        if(getX()<7&&getY()>1) verif[getX()+1][getY() - 1] = true;
+        if(getX()<7&&getY()<7) verif[getX()+1][getY() + 1] = true; 
+        if(getX()>1&&getY()<7)  verif[getX()-1][getY() + 1] = true;
+            
+           
+
+        
+        return verif;
     }
 }

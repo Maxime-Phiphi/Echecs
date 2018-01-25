@@ -123,7 +123,7 @@ public class Jeu extends JPanel implements MouseListener {
                 verif = p.checkCase();
                 for (int i = 0; i <TAILLE ; i++) {
                     for (int j = 0; j < TAILLE ; j++) {
-                        System.out.println(i + " "+ j + " "+  verif[i][j]);
+                        //System.out.println(i + " "+ j + " "+  verif[i][j]);
                     }
 
                 }
@@ -145,6 +145,8 @@ public class Jeu extends JPanel implements MouseListener {
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
                 repaint();
+                aClickPiece = true;
+                
             }
         }
 

@@ -45,6 +45,11 @@ public abstract class Piece implements CheckDeplacement{
     	return this.coordY;
     }
     
+    public boolean outBounds(int n) {
+    	if(n<1||n>6) return false;
+    	return true;
+    }
+    
 
     public String getCouleur() {
         return couleur;
