@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class Case {
     private static final int COTECASE = 75;
-    private Color couleur;
+    protected Color couleur;
     private boolean occupe;
     private int x, y;
 
@@ -34,14 +34,10 @@ public abstract class Case {
             this.couleur = Color.green;
         }
         else {
-            if (this instanceof CaseBlanche){
-                this.couleur = Color.white;
-            }
-            else {
-                this.couleur = Color.gray;
-            }
+        this.resetCouleur();
         }
     }
+    public abstract void resetCouleur ();
 
     public int getX() {
         return x;
@@ -50,4 +46,6 @@ public abstract class Case {
     public int getY() {
         return y;
     }
+
+
 }

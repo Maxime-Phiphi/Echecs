@@ -19,6 +19,7 @@ public class Jeu extends JPanel implements MouseListener {
     private Damier d = new Damier();
     private Piece p;
     boolean[][] verif= new boolean[8][8];
+    boolean aClickPiece = true;
 
 
     public Jeu() {
@@ -116,31 +117,35 @@ public class Jeu extends JPanel implements MouseListener {
             int y = (e.getY()-50)/75;
             Case c = d.getCaseAt(x,y);
 
-            if (c.isOccupe()) { // Si on clique sur une piece
+
+            if (c.isOccupe() && aClickPiece) { // Si on clique sur une piece
                 p = getPieceAt(x, y);
                 verif = p.checkCase();
+                for (int i = 0; i <TAILLE ; i++) {
+                    for (int j = 0; j < TAILLE ; j++) {
+                        System.out.println(i + " "+ j + " "+  verif[i][j]);
+                    }
+
+                }
                 paintDeplacement(verif);
+                aClickPiece = false;
             }
 
-            else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte
-                  listPiece.remove(p);
+            else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide
                   p.setPosition(x,y);
-                System.out.println(p.getX());
-                System.out.println(p.getY());
-                  listPiece.add(p);
                   d.setCasesOccupees(listPiece);
                   paintDeplacement(verif);
                   repaint();
+                  aClickPiece = true;
             }
-
-//			System.out.println(piece.getNom());
-//			System.out.println(x+" "+y);
-//			choixCase(x,y);
-
-
-            //Pion p1 = new Pion(x, y, "B");
-
-//            repaint();
+            else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
+                listPiece.remove(getPieceAt(x,y));
+                System.out.println("manger!!!!!!!!!!!!");
+                p.setPosition(x,y);
+                d.setCasesOccupees(listPiece);
+                paintDeplacement(verif);
+                repaint();
+            }
         }
 
     }
