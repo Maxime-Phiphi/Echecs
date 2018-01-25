@@ -51,6 +51,7 @@ public class Damier {
 
     public void setCasesOccupees(ArrayList<Piece> listPiece) {
         for (Case c : ListCase) {
+        	c.setOccupe(false);
             for (Piece p : listPiece) {
                if (c.getX() == p.getX() && c.getY() == p.getY()){
                    c.setOccupe(true);
