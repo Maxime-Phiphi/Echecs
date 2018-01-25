@@ -29,6 +29,58 @@ public class Tour extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-        return new boolean[0][];
+    	boolean[][] verif = new boolean[8][8];
+        String col = super.getCouleur();
+        int i = getX();
+        int j = getX();
+        int k = getY();
+        int m = getY();
+       
+        
+        while(i<8) {
+        	verif[i][getY()] = true; 
+        	if(d.getCaseAt(i, getY()).getOccupe()!="") {
+        		verif[i][getY()] = false; 
+        		
+        		
+        		
+        	}
+        	
+        	i++;
+        	
+        }
+        while(k<8) {
+        	verif[getX()][k] = true; 
+        	if(d.getCaseAt(getX(), k).getOccupe()!="") {
+        		verif[getX()][k] = false; 
+        		
+        		
+        	}
+        	k++;
+        	
+        }
+        while(j>=0) {
+        	verif[j][getY()] = true; 
+        	if(d.getCaseAt(j, getY()).getOccupe()!="") {
+        		verif[j][getY()] = false; 
+        		
+        		
+        	}
+        	j--;
+        	
+        }
+        while(m>=0) {
+        	verif[getX()][m] = true; 
+        	if(d.getCaseAt(getX(), m).getOccupe()!="") {
+        		verif[getX()][m] = false; 
+        		
+        		
+        	}
+        	m--;
+        	
+        }
+        return verif;
+        
+        
     }
 }
