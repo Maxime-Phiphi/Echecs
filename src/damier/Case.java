@@ -6,14 +6,14 @@ import java.util.Objects;
 public abstract class Case {
     private static final int COTECASE = 75;
     protected Color couleur;
-    private boolean occupe;
+    private String occupe;
     private int x, y;
 
     public Case(Color couleur, int x , int y) {
         this.couleur = couleur;
         this.x = x;
         this.y = y;
-        this.occupe = false;
+        this.occupe = "";
     }
 
     public void paintComponent(Graphics g ) {
@@ -22,10 +22,15 @@ public abstract class Case {
     }
 
     public boolean isOccupe() {
-        return occupe;
+        if(this.occupe=="") return false; 
+        return true; 
+    }
+    
+    public String getOccupe() {
+    	return occupe;
     }
 
-    public void setOccupe(boolean occupe) {
+    public void setOccupe(String occupe) {
         this.occupe = occupe;
     }
 

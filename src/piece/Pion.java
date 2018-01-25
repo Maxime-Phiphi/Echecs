@@ -32,23 +32,23 @@ public class Pion extends Piece {
         boolean[][] verif = new boolean[8][8];
         if (Objects.equals(getCouleur(), "B")){
 
-            if (!d.getCaseAt(getX(),getY()-1).isOccupe()) // si y a personne au dessus de lui
+            if (outBounds(getY())&&d.getCaseAt(getX(),getY()-1).getOccupe()=="") // si y a personne au dessus de lui
                 verif[getX()][getY() - 1] = true; //il peut y aller
-            else if (d.getCaseAt(getX()-1,getY()-1).isOccupe()) //si y a quelqu'un dans la diagonale a gauche
+            if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()-1,getY()-1).getOccupe()=="N") //si y a quelqu'un dans la diagonale a gauche
                 verif[getX() - 1][getY() - 1] = true;
-            else if (d.getCaseAt(getX()+ 1,getY()-1).isOccupe()) // diago droite
+            if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()+ 1,getY()-1).getOccupe()=="N") // diago droite
                 verif[getX() + 1][getY() - 1] = true;
-            if (getY() == 6) // si c'est son premier coup il peut avancer de 2
+            if (getY() == 6&&!d.getCaseAt(getX(),getY()-2).isOccupe()) // si c'est son premier coup il peut avancer de 2
                 verif[getX()][getY() - 2] = true;
         }
         else {
-            if (!d.getCaseAt(getX(),getY()+1).isOccupe()) // si y a personne au dessus de lui
+            if (outBounds(getY())&&d.getCaseAt(getX(),getY()+1).getOccupe()=="") // si y a personne au dessus de lui
                 verif[getX()][getY() + 1] = true; //il peut y aller
-            else if (d.getCaseAt(getX()-1,getY()+1).isOccupe()) //si y a quelqu'un dans la diagonale a gauche
+            if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()-1,getY()+1).getOccupe()=="B") //si y a quelqu'un dans la diagonale a gauche
                 verif[getX() - 1][getY() + 1] = true;
-            else if (d.getCaseAt(getX()+1,getY()+ 1).isOccupe()) // diago droite
+            if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()+1,getY()+ 1).getOccupe()=="B") // diago droite
                 verif[getX() + 1][getY() + 1] = true;
-            if (getY() == 1) // si c'est son premier coup il peut avancer de 2
+            if (getY() == 1&&!d.getCaseAt(getX(),getY()+2).isOccupe()) // si c'est son premier coup il peut avancer de 2
                 verif[getX()][getY() + 2] = true;
         }
         return verif;

@@ -28,6 +28,21 @@ public class Roi extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-        return new boolean[0][];
+        boolean[][] verif = new boolean[8][8];
+        String col = super.getCouleur();
+        
+        if(getY()>0&&d.getCaseAt(getX(), getY()-1).getOccupe()!=col) verif[getX()][getY() - 1] = true; 
+        if(getY()<7&&d.getCaseAt(getX(), getY()+1).getOccupe()!=col) verif[getX()][getY() + 1] = true;
+        if(getX()>0&&d.getCaseAt(getX()-1, getY()).getOccupe()!=col) verif[getX()-1][getY()] = true; 
+        if(getX()<7&&d.getCaseAt(getX()+1, getY()).getOccupe()!=col) verif[getX()+1][getY()] = true;
+        if(getX()>0&&getY()>0&&d.getCaseAt(getX()-1, getY()-1).getOccupe()!=col) verif[getX()-1][getY() - 1] = true; 
+        if(getX()<7&&getY()>0&&d.getCaseAt(getX()+1, getY()-1).getOccupe()!=col) verif[getX()+1][getY() - 1] = true;
+        if(getX()<7&&getY()<7&&d.getCaseAt(getX()+1, getY()+1).getOccupe()!=col) verif[getX()+1][getY() + 1] = true; 
+        if(getX()>0&&getY()<7&&d.getCaseAt(getX()-1, getY()+1).getOccupe()!=col)  verif[getX()-1][getY() + 1] = true;
+            
+           
+
+        
+        return verif;
     }
 }
