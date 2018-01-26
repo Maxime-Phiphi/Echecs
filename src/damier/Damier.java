@@ -73,11 +73,6 @@ public class Damier {
         return null;
     }
 
-	public void choixCase(int x, int y) {
 
-
-//		   checkDeplacement = jeu.getPiece(x,y).checkCase(jeu.getPiece(x,y),checkDeplacement);
-
-	}
 
 }
