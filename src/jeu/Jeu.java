@@ -145,6 +145,7 @@ public class Jeu extends JPanel implements MouseListener {
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
                 repaint();
+                aClickPiece = true;
             }
         }
 
