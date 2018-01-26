@@ -1,13 +1,8 @@
 package damier;
-
-import jeu.Jeu;
 import piece.Piece;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Damier {
 
@@ -54,6 +49,10 @@ public class Damier {
             for (Piece p : listPiece) {
                if (c.getX() == p.getX() && c.getY() == p.getY()){
                    c.setOccupe(true);
+                   break;
+               }
+               else {
+                   c.setOccupe(false);
                }
             }
         }
@@ -64,7 +63,16 @@ public class Damier {
             c.paintComponent(g);
         }
 	}
-	
+
+	public String getCouleurPieceAt (int x, int y, List<Piece> listPiece){
+        for (Piece p : listPiece) {
+            if (p.getX() == x && p.getY()==y ) {
+                return p.getCouleur();
+            }
+        }
+        return null;
+    }
+
 	public void choixCase(int x, int y) {
 
 

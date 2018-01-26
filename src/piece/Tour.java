@@ -5,6 +5,7 @@ import damier.Damier;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class Tour extends Piece {
@@ -27,8 +28,10 @@ public class Tour extends Piece {
         return this.getNom();
     }
 
+
+
     @Override
-    public boolean[][] checkCase() {
+    public boolean[][] checkCase(List<Piece> listPiece) {
         return new boolean[0][];
     }
 }

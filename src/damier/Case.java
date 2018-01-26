@@ -1,7 +1,6 @@
 package damier;
 
 import java.awt.*;
-import java.util.Objects;
 
 public abstract class Case {
     private static final int COTECASE = 75;

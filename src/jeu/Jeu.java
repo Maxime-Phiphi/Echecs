@@ -120,7 +120,7 @@ public class Jeu extends JPanel implements MouseListener {
 
             if (c.isOccupe() && aClickPiece) { // Si on clique sur une piece
                 p = getPieceAt(x, y);
-                verif = p.checkCase();
+                verif = p.checkCase(listPiece);
                 for (int i = 0; i <TAILLE ; i++) {
                     for (int j = 0; j < TAILLE ; j++) {
                         System.out.println(i + " "+ j + " "+  verif[i][j]);
@@ -140,7 +140,6 @@ public class Jeu extends JPanel implements MouseListener {
             }
             else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
                 listPiece.remove(getPieceAt(x,y));
-                System.out.println("manger!!!!!!!!!!!!");
                 p.setPosition(x,y);
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
