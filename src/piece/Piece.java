@@ -50,6 +50,11 @@ public abstract class Piece implements CheckDeplacement{
     	return true;
     }
     
+    public boolean innerBounds(int n) {
+    	if(n<2||n>5) return false; 
+    	return true;
+    }
+    
 
     public String getCouleur() {
         return couleur;

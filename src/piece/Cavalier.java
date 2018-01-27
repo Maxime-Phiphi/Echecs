@@ -31,6 +31,82 @@ public class Cavalier extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-        return new boolean[0][];
+    	boolean[][] verif = new boolean[8][8];
+    	String col = super.getCouleur();
+
+    	//mvts 2 ensuite 1
+    	if(getX()>2) {
+    		if(getY()<7&&d.getCaseAt(getX()-2, getY()+1).getOccupe()!=col) {
+    			verif[getX()-2][getY()+1] = true; 
+    		}
+    		if(getY()>0&&d.getCaseAt(getX()-2, getY()-1).getOccupe()!=col) {
+    			verif[getX()-2][getY() - 1] = true; 
+    		}
+    	}
+    	if(getX()<6) {
+    		if(getY()<7&&d.getCaseAt(getX()+2, getY()+1).getOccupe()!=col) {
+    			verif[getX()+2][getY() + 1] = true; 
+    		}
+    		if(getY()>0&&d.getCaseAt(getX()+2, getY()-1).getOccupe()!=col) {
+    			verif[getX()+2][getY() - 1] = true; 
+    		}
+    	}
+    	
+    	if(getY()>2) {
+    		if(getX()<7&&d.getCaseAt(getX()+1, getY()-2).getOccupe()!=col) {
+    			verif[getX()+1][getY() - 2] = true; 
+    		}
+    		if(getX()>0&&d.getCaseAt(getX()-1, getY()-2).getOccupe()!=col) {
+    			verif[getX()-1][getY() - 2] = true; 
+    		}
+    	}
+    	if(getY()<6) {
+    		if(getX()<7&&d.getCaseAt(getX()+1, getY()+2).getOccupe()!=col) {
+    			verif[getX()+1][getY() + 2] = true; 
+    		}
+    		if(getX()>0&&d.getCaseAt(getX()-1, getY()+2).getOccupe()!=col) {
+    			verif[getX()-1][getY() + 2] = true; 
+    		}
+    	}
+    	
+    	
+    	
+    	//mvts 1 ensuite 2 
+    	
+    	if(getX()>0&&innerBounds(getY())) {
+    		if(d.getCaseAt(getX()-1, getY()+2).getOccupe()!=col) {
+    			
+    			verif[getX()-1][getY() + 2] = true; 
+    		}
+    		if(d.getCaseAt(getX()-1, getY()-2).getOccupe()!=col) {
+    			verif[getX()-1][getY() - 2] = true; 
+    		}
+    	}
+    	if(getX()<7&&innerBounds(getY())) {
+    		if(d.getCaseAt(getX()+1, getY()+2).getOccupe()!=col) {
+    			verif[getX()+1][getY() + 2] = true; 
+    		}
+    		if(d.getCaseAt(getX()+1, getY()-2).getOccupe()!=col) {
+    			verif[getX()+1][getY() - 2] = true; 
+    		}
+    	}
+    	
+    	if(getY()>0&&innerBounds(getX())) {
+    		if(d.getCaseAt(getX()+2, getY()-1).getOccupe()!=col) {
+    			verif[getX()+2][getY() - 1] = true; 
+    		}
+    		if(d.getCaseAt(getX()-2, getY()-1).getOccupe()!=col) {
+    			verif[getX()-2][getY() - 1] = true; 
+    		}
+    	}
+    	if(getY()<7&&innerBounds(getX())) {
+    		if(d.getCaseAt(getX()+2, getY()+1).getOccupe()!=col) {
+    			verif[getX()+2][getY() +1] = true; 
+    		}
+    		if(d.getCaseAt(getX()-2, getY()+1).getOccupe()!=col) {
+    			verif[getX()-2][getY() +1] = true; 
+    		}
+    	}
+    	return verif;
     }
 }
