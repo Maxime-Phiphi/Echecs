@@ -73,6 +73,7 @@ public class Damier {
         return null;
     }
 
-
-
+    public ArrayList<Case> getListCase() {
+        return ListCase;
+    }
 }
