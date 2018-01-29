@@ -28,6 +28,6 @@ public class Reine extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-        return new boolean[0][];
+        return checkDroites(checkDiag());
     }
 }

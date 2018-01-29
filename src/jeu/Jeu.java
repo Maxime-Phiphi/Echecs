@@ -87,7 +87,12 @@ public class Jeu extends JPanel implements MouseListener {
         return listPiece;
     }
 
-
+    public boolean checkEchec() {
+    	for(Piece p : listPiece) {
+    		if(p.getNom()=="RN"||p.getNom()=="RB") System.out.println("Roi");
+    	}
+    	return false;
+    }
 
     public Piece getPieceAt (int x, int y){
         for (Piece p: listPiece) {
@@ -111,6 +116,7 @@ public class Jeu extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    	
         if(e.getButton()==1){
 
             int x = (e.getX()-50)/75;
@@ -149,6 +155,7 @@ public class Jeu extends JPanel implements MouseListener {
                 
             }
         }
+        checkEchec();
 
     }
 

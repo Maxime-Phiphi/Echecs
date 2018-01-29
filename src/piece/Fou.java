@@ -27,37 +27,9 @@ public class Fou extends Piece {
 
     @Override
     public boolean[][] checkCase() {
-//        if (Objects.equals(p.getCouleur(), "B")) {
-//            int x = p.getX();
-//            int y = p.getY();
-//            int g = 0;
-//            //Diagonale à gauche
-//            while (x > 0 && g == 0){
-//                if (p.tabPiece[x-1][y+1] == null) {
-//                    x--;
-//                    y++;
-//                }
-//                else {
-//                    x--;
-//                    y++;
-//                    g = 1;
-//                }
-//            }
-//            verif[x][y] = true;
-//            //Diagonale à droite
-//            while (x<7 && g==0){
-//                if (p.tabPiece[x+1][y+1] == null) {
-//                    x++;
-//                    y++;
-//                }
-//                else {
-//                    x++;
-//                    y++;
-//                    g = 1;
-//                }
-//            }
-//            verif [x][y] = true;
-//        }
-        return null;
+    	
+    		return checkDiag();
+
+
     }
 }

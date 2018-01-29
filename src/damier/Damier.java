@@ -13,7 +13,7 @@ public class Damier {
 
 	public static final int TAILLE =8;
 	private boolean[][] checkDeplacement = new boolean[8][8];
-	private ArrayList<Case> ListCase = new ArrayList<>();
+	private static ArrayList<Case> ListCase = new ArrayList<>();
 
 	
 	public Damier() {
@@ -71,6 +71,9 @@ public class Damier {
 
 //		   checkDeplacement = jeu.getPiece(x,y).checkCase(jeu.getPiece(x,y),checkDeplacement);
 
+	}
+	public static ArrayList<Case> getListCase(){
+		return ListCase;
 	}
 
 }
