@@ -20,6 +20,8 @@ public class Jeu extends JPanel implements MouseListener {
     private Piece p;
     boolean[][] verif= new boolean[8][8];
     boolean aClickPiece = true;
+    private boolean echecNoir = false; 
+    private boolean echecBlanc = false; 
 
 
     public Jeu() {
@@ -89,7 +91,26 @@ public class Jeu extends JPanel implements MouseListener {
 
     public boolean checkEchec() {
     	for(Piece p : listPiece) {
-    		if(p.getNom()=="RN"||p.getNom()=="RB") System.out.println("Roi");
+    		
+    		if(p.getNom().equals("RN"))
+    			for(Piece p1 : listPiece) {
+    				boolean[][] tabCases = p1.checkCase();
+    				if(tabCases[p.getX()][p.getY()]) {
+    					System.out.println("Roi noir en echec"); 
+    					echecNoir = true; 
+    				}
+    				
+    			}
+    		if(p.getNom().equals("RB")) {
+    			for(Piece p2 :listPiece) {
+    				boolean[][] tabCasesBis = p2.checkCase();
+    				if(tabCasesBis[p.getX()][p.getY()]) {
+    					System.out.println("Roi blanc en echec");
+    					echecBlanc = true;
+    				}
+    				
+    			}
+    		}
     	}
     	return false;
     }
@@ -143,19 +164,21 @@ public class Jeu extends JPanel implements MouseListener {
                   paintDeplacement(verif);
                   repaint();
                   aClickPiece = true;
+                  checkEchec();
             }
             else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
                 listPiece.remove(getPieceAt(x,y));
-                System.out.println("manger!!!!!!!!!!!!");
+                //System.out.println("manger!!!!!!!!!!!!");
                 p.setPosition(x,y);
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
                 repaint();
                 aClickPiece = true;
+                checkEchec();
                 
             }
         }
-        checkEchec();
+        
 
     }
 

@@ -156,10 +156,7 @@ public abstract class Piece implements CheckDeplacement{
 			m--;
 
 		}
-		for(boolean[] b : verif){
-			for(boolean bb:b)
-				System.out.println(bb);
-		}
+		
 		return verif;
 	}
 	public boolean[][] checkDroites(){
@@ -169,7 +166,7 @@ public abstract class Piece implements CheckDeplacement{
 		int j = getX();
 		int k = getY();
 		int m = getY();
-		boolean c1=false, c2=false, c3=false, c4=false;
+
 
 		while(i<7) {
 			verif[i+1][getY()] = true; 
@@ -219,10 +216,7 @@ public abstract class Piece implements CheckDeplacement{
 			m--;
 
 		}
-		for(boolean[] b : verif){
-			for(boolean bb:b)
-				System.out.println(bb);
-		}
+		
 		return verif;
 
 
