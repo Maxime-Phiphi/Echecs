@@ -33,6 +33,47 @@ public class Cavalier extends Piece {
 
     @Override
     public boolean[][] checkCase(List<Piece> listPiece) {
-        return new boolean[0][];
+        boolean[][] verif = new boolean[8][8];
+        // au bord en haut
+        if (getY()==0){
+
+        }
+
+        // au bord en bas
+        if (getY()==7){
+
+        }
+
+        //au bord a gauche
+        if (getX()==0){
+
+        }
+        // au bord a droite
+        if (getX()==7){
+            verif[getX()-1][getY()+2] = true;
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()-2][getY()-1] = true;
+            verif[getX()-2][getY()-1] = true;
+        }
+        // au bord a droite vers le bas
+        if (getX()==7 && getY()==6){
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()-2][getY()-1] = true;
+            verif[getX()-2][getY()-1] = true;
+        }
+        // pas au bord
+        if (getX()!=0 && getX()!=7 && getY()!=0 && getY()!=7){
+            verif[getX()+1][getY()+2] = true;
+            verif[getX()-1][getY()+2] = true;
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()-1][getY()-2] = true;
+            verif[getX()+2][getY()+1] = true;
+            verif[getX()+2][getY()-1] = true;
+            verif[getX()-2][getY()-1] = true;
+            verif[getX()-2][getY()-1] = true;
+        }
+        return verif;
     }
 }
