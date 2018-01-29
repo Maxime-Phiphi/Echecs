@@ -1,12 +1,12 @@
 package piece;
 
+import damier.Case;
 import damier.Damier;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Fou extends Piece {
     public Fou(int x, int y, String couleur, Damier d) {
@@ -28,7 +28,122 @@ public class Fou extends Piece {
 
     @Override
     public boolean[][] checkCase(List<Piece> listPiece) {
-        return new boolean[0][];
+        boolean[][] verif = new boolean[8][8];
+
+        Map<String, Case> memeDiago1 = new HashMap<>();
+
+        for (int i = 0; i < d.getListCase().size(); i++) {
+            Case c = d.getListCase().get(i);
+            if (this.getY() != c.getY() && this.getX() != c.getX()) {
+                float b = (float) (this.getY() - c.getY()) / (this.getX() - c.getX());
+                if (Math.abs(b) == 1f) {
+                    memeDiago1.put(""+c.getX()+c.getY(), c);
+                }
+            }
+        }
+
+        TreeMap<String,Case> memeColByKeys = new TreeMap<>(memeDiago1);
+        boolean isBreak = false;
+        for (int i = this.getX(); i > 0; i--) {
+            for (int j = this.getY(); j > 0; j--) {
+                if (memeColByKeys.get(""+i+j) != null)
+                {
+                    Case c = memeColByKeys.get(""+i+j);
+                    if (d.getCaseAt(c.getX(),c.getY()).isOccupe())
+                    {
+                        if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
+                            verif[c.getX()][c.getY()] = true;
+                        }
+                        System.out.println("break");
+                        isBreak = true;
+                        break;
+                    }
+                    else
+                    {
+                        verif[c.getX()][c.getY()] = true;
+                    }
+                }
+                if(isBreak)
+                    break;
+            }
+        }
+
+        isBreak = false;
+        for (int i = this.getX(); i > 0; i--) {
+            for (int j = this.getY(); j < 8; j++) {
+                if (memeColByKeys.get(""+i+j) != null)
+                {
+                    Case c = memeColByKeys.get(""+i+j);
+                    if (d.getCaseAt(c.getX(),c.getY()).isOccupe())
+                    {
+                        if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
+                            verif[c.getX()][c.getY()] = true;
+                        }
+                        System.out.println("break");
+                        isBreak = true;
+                        break;
+                    }
+                    else
+                    {
+                        verif[c.getX()][c.getY()] = true;
+                    }
+                }
+                if(isBreak)
+                    break;
+            }
+        }
+
+        isBreak = false;
+        for (int i = this.getX(); i < 8; i++) {
+            for (int j = this.getY(); j < 8; j++) {
+                if (memeColByKeys.get(""+i+j) != null)
+                {
+                    Case c = memeColByKeys.get(""+i+j);
+                    if (d.getCaseAt(c.getX(),c.getY()).isOccupe())
+                    {
+                        if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
+                            verif[c.getX()][c.getY()] = true;
+                        }
+                        System.out.println("break");
+                        isBreak = true;
+                        break;
+                    }
+                    else
+                    {
+                        verif[c.getX()][c.getY()] = true;
+                    }
+                }
+                if(isBreak)
+                    break;
+            }
+        }
+
+        isBreak = false;
+        for (int i = this.getX(); i < 8; i++) {
+            for (int j = this.getY(); j > 0; j--) {
+                if (memeColByKeys.get(""+i+j) != null)
+                {
+                    Case c = memeColByKeys.get(""+i+j);
+                    if (d.getCaseAt(c.getX(),c.getY()).isOccupe())
+                    {
+                        if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
+                            verif[c.getX()][c.getY()] = true;
+                        }
+                        System.out.println("break");
+                        isBreak = true;
+                        break;
+                    }
+                    else
+                    {
+                        verif[c.getX()][c.getY()] = true;
+                    }
+                }
+                if(isBreak)
+                    break;
+            }
+        }
+
+        return verif;
     }
 
 
