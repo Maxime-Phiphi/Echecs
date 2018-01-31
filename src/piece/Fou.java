@@ -44,8 +44,8 @@ public class Fou extends Piece {
 
         TreeMap<String,Case> memeColByKeys = new TreeMap<>(memeDiago1);
         boolean isBreak = false;
-        for (int i = this.getX(); i > 0; i--) {
-            for (int j = this.getY(); j > 0; j--) {
+        for (int i = this.getX(); i >= 0; i--) {
+            for (int j = this.getY(); j >= 0; j--) {
                 if (memeColByKeys.get(""+i+j) != null)
                 {
                     Case c = memeColByKeys.get(""+i+j);
@@ -54,7 +54,6 @@ public class Fou extends Piece {
                         if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
                             verif[c.getX()][c.getY()] = true;
                         }
-                        System.out.println("break");
                         isBreak = true;
                         break;
                     }
@@ -69,7 +68,7 @@ public class Fou extends Piece {
         }
 
         isBreak = false;
-        for (int i = this.getX(); i > 0; i--) {
+        for (int i = this.getX(); i >= 0; i--) {
             for (int j = this.getY(); j < 8; j++) {
                 if (memeColByKeys.get(""+i+j) != null)
                 {
@@ -104,7 +103,6 @@ public class Fou extends Piece {
                         if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
                             verif[c.getX()][c.getY()] = true;
                         }
-                        System.out.println("break");
                         isBreak = true;
                         break;
                     }
@@ -120,7 +118,7 @@ public class Fou extends Piece {
 
         isBreak = false;
         for (int i = this.getX(); i < 8; i++) {
-            for (int j = this.getY(); j > 0; j--) {
+            for (int j = this.getY(); j >= 0; j--) {
                 if (memeColByKeys.get(""+i+j) != null)
                 {
                     Case c = memeColByKeys.get(""+i+j);
@@ -129,7 +127,6 @@ public class Fou extends Piece {
                         if (!Objects.equals(this.getCouleur(), d.getCouleurPieceAt(c.getX(), c.getY(), listPiece))) {
                             verif[c.getX()][c.getY()] = true;
                         }
-                        System.out.println("break");
                         isBreak = true;
                         break;
                     }
