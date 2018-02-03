@@ -208,6 +208,7 @@ public class Jeu extends JPanel implements MouseListener {
 
             else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide
             	
+            	
             	if(p.getNom().equals("RB")) {
             		
             		if(x==p.getX()-2) {
@@ -249,6 +250,68 @@ public class Jeu extends JPanel implements MouseListener {
             	aClickPiece = true;
             	checkEchec();
             	checkRoi(p);
+            	if(p.getNom().equals("PB")&&y==4) {
+            		
+            		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PN")) {
+            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+            			if(result==0) {
+            				listPiece.remove(getPieceAt(x+1,y));
+            				listPiece.remove(getPieceAt(x,y));
+            				Pion pionn = new Pion(x, y+1, "N",d);
+            				listPiece.add(pionn);
+            				d.setCasesOccupees(listPiece);
+                            repaint();
+                            aClickPiece = true;
+                            checkEchec();
+                            checkRoi(p);
+            			}
+            		}
+            		if(x>0&&getPieceAt(x-1, y)!=null&&getPieceAt(x-1, y).getNom().equals("PN")) {
+            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+            			if(result==0) {
+            				listPiece.remove(getPieceAt(x-1,y));
+            				listPiece.remove(getPieceAt(x,y));
+            				Pion pionn = new Pion(x, y+1, "N",d);
+            				listPiece.add(pionn);
+            				d.setCasesOccupees(listPiece);
+                            repaint();
+                            aClickPiece = true;
+                            checkEchec();
+                            checkRoi(p);
+            			}
+            		}
+            	}
+            	if(p.getNom().equals("PN")&&y==3) {
+            		
+            		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PB")) {
+            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+            			if(result==0) {
+            				listPiece.remove(getPieceAt(x+1,y));
+            				listPiece.remove(getPieceAt(x,y));
+            				Pion pionb = new Pion(x, y-1, "B",d);
+            				listPiece.add(pionb);
+            				d.setCasesOccupees(listPiece);
+                            repaint();
+                            aClickPiece = true;
+                            checkEchec();
+                            checkRoi(p);
+            			}
+            		}
+            		if(x>0&&getPieceAt(x-1, y)!=null&&getPieceAt(x-1, y).getNom().equals("PB")) {
+            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+            			if(result==0) {
+            				listPiece.remove(getPieceAt(x-1,y));
+            				listPiece.remove(getPieceAt(x,y));
+            				Pion pionb = new Pion(x, y-1, "B",d);
+            				listPiece.add(pionb);
+            				d.setCasesOccupees(listPiece);
+                            repaint();
+                            aClickPiece = true;
+                            checkEchec();
+                            checkRoi(p);
+            			}
+            		}
+            	}
             }
             else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
                 listPiece.remove(getPieceAt(x,y));
