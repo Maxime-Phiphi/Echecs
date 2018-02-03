@@ -7,7 +7,7 @@ public class Menu extends Fenetre{
 	
 	JButton play1 = new JButton("2 Joueurs");
 	JButton play2 = new JButton("Jouer contre l'ordinateur");
-	JButton regles = new JButton("Règles");
+	JButton regles = new JButton("Jouer une partie chargée");
 	JButton quitter = new JButton("Quitter");
 	
 	public Menu() throws IOException{
@@ -18,7 +18,7 @@ public class Menu extends Fenetre{
 		play2.setActionCommand("j2");
 		play2.addActionListener(this);
 		
-		regles.setActionCommand("regles");
+		regles.setActionCommand("j3");
 		regles.addActionListener(this);
 		
 		quitter.addActionListener(new FermetureFenetre());
@@ -55,14 +55,14 @@ public class Menu extends Fenetre{
 			}
 	
 		
-		if(evt.getActionCommand().equals("regles")){
-			FenetreRegle regles;
+		if(evt.getActionCommand().equals("j3")){
 			try {
-				regles = new FenetreRegle();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				FenetreJeuCharge f = new FenetreJeuCharge();
+				f.setVisible(true);
+				dispose();
+				}catch(Exception e) {
+					
+				}
 				
 		}
 				

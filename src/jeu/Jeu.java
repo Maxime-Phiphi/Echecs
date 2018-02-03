@@ -8,7 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static damier.Damier.TAILLE;
 
@@ -29,22 +35,235 @@ public class Jeu extends JPanel implements MouseListener {
     private static int yPrec = 0;
 
 
-    public Jeu() {
+    public Jeu() throws IOException{
+    	
+    	
         setOpaque(false);
         setLayout(new BorderLayout());
         this.addMouseListener(this);
         Initialiser();
+        
         d.setCasesOccupees(listPiece);
     }
     
-    public Jeu(String s) {
+    public Jeu(String s) throws IOException{
+    	
         setOpaque(false);
         setLayout(new BorderLayout());
         this.addMouseListener(this);
-        Initialiser();
+        Initialiser(s);
+        
         d.setCasesOccupees(listPiece);
     }
 
+    public void Initialiser(String fichier) throws IOException {
+    	try {
+    		String[] placement = new String[34];
+    		String[] placementBlanc= new String[16];
+    		String[] placementNoir = new String[16];
+    		Scanner fileIn = new Scanner(new File(fichier));
+    		int i = 0;
+			while(fileIn.hasNextLine()) {
+				placement[i]=fileIn.nextLine();
+				i++;
+			}
+			
+				for(int j = 0; j<16;j++) {
+					placementBlanc[j]=placement[j+1];
+				}
+				for(int k = 0; k<16;k++) {
+					placementNoir[k]=placement[k+18];
+				}
+			
+				
+			
+			
+			
+			for(String s : placementBlanc) {
+				int x=-1, y=-1;
+				String[] piece = s.split("\t");
+				switch(piece[1].charAt(0)) {
+				case 'a':
+					x = 0;
+					break;
+				case 'b':
+					x=1;
+					break;
+				case 'c':
+					x=2;
+					break;
+				case 'd':
+					x=3;
+					break;
+				case 'e':
+					x=4;
+					break;
+				case 'f':
+					x=5;
+					break;
+				case 'g':
+					x=6;
+					break;
+				case 'h':
+					x=7;
+					break;
+					}
+				try {
+					switch(piece[1].charAt(1)) {
+				
+				case '8':
+					y = 0;
+					break;
+				case '7':
+					y=1;
+					break;
+				case '6':
+					y=2;
+					break;
+				case '5':
+					y=3;
+					break;
+				case '4':
+					y=4;
+					break;
+				case '3':
+					y=5;
+					break;
+				case '2':
+					y=6;
+					break;
+				case '1':
+					y=7;
+					break;
+				}
+				}catch(Exception e) {
+					
+				}
+				switch(piece[0].charAt(0)) {
+				case 'p':
+					Pion pionb1 = new Pion(x,y,"B", d);
+					listPiece.add(pionb1);
+					break;
+				case 't':
+					Tour tourb = new Tour(x,y,"B",d);
+					listPiece.add(tourb);
+					break;
+				case 'b':
+					Fou foub = new Fou(x,y,"B", d);
+					listPiece.add(foub);
+					break;
+				case 'q':
+					Reine reineb = new Reine(x,y,"B", d);
+					listPiece.add(reineb);
+					break;
+				case 'k':
+					if(piece[0].charAt(1)!=' ') {
+						Cavalier cavalierb1= new Cavalier(x, y, "B",d);
+						listPiece.add(cavalierb1);
+					}else {
+						Roi roib = new Roi(x,y,"B", d);
+						listPiece.add(roib);
+					}
+				
+				}
+				
+			}
+			for(String s : placementNoir) {
+				int x=-1, y=-1;
+				String[] piece = s.split("\t");
+				switch(piece[1].charAt(0)) {
+				case 'a':
+					x = 0;
+					break;
+				case 'b':
+					x=1;
+					break;
+				case 'c':
+					x=2;
+					break;
+				case 'd':
+					x=3;
+					break;
+				case 'e':
+					x=4;
+					break;
+				case 'f':
+					x=5;
+					break;
+				case 'g':
+					x=6;
+					break;
+				case 'h':
+					x=7;
+					break;
+					}
+				try {
+					switch(piece[1].charAt(1)) {
+				
+				case '8':
+					y = 0;
+					break;
+				case '7':
+					y=1;
+					break;
+				case '6':
+					y=2;
+					break;
+				case '5':
+					y=3;
+					break;
+				case '4':
+					y=4;
+					break;
+				case '3':
+					y=5;
+					break;
+				case '2':
+					y=6;
+					break;
+				case '1':
+					y=7;
+					break;
+				}
+				}catch(Exception e) {
+					
+				}
+				switch(piece[0].charAt(0)) {
+				case 'p':
+					Pion pionn1 = new Pion(x,y,"N", d);
+					listPiece.add(pionn1);
+					break;
+				case 't':
+					Tour tourn = new Tour(x,y,"N",d);
+					listPiece.add(tourn);
+					break;
+				case 'b':
+					Fou foun = new Fou(x,y,"N", d);
+					listPiece.add(foun);
+					break;
+				case 'q':
+					Reine reinen = new Reine(x,y,"N", d);
+					listPiece.add(reinen);
+					break;
+				case 'k':
+					if(piece[0].charAt(1)!=' ') {
+						Cavalier cavaliern1= new Cavalier(x, y, "N",d);
+						listPiece.add(cavaliern1);
+					}else {
+						Roi roin = new Roi(x,y,"N", d);
+						listPiece.add(roin);
+					}
+				
+				}
+			}
+			fileIn.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    }
 	public void Initialiser(){
 
         for(int i = 0; i< Grille.getTaille(); i++) {

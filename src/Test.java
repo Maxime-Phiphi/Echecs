@@ -10,6 +10,7 @@ public class Test {
 		Menu m = new Menu();
 		m.setVisible(true);
 		
+		
 	}
 
 }
