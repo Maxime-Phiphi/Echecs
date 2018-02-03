@@ -48,7 +48,7 @@ public abstract class Piece implements CheckDeplacement{
 	}
 
 	public boolean outBounds(int n) {
-		if(n<1||n>6) return false;
+		if(n<0||n>7) return false;
 		return true;
 	}
 
