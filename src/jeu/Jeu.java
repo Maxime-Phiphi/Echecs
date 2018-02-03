@@ -26,6 +26,7 @@ public class Jeu extends JPanel implements MouseListener {
     private static boolean roqueN = false; 
     private static boolean moveRB = false; 
     private static boolean moveRN = false; 
+    private static int yPrec = 0;
 
 
     public Jeu() {
@@ -187,10 +188,13 @@ public class Jeu extends JPanel implements MouseListener {
             int x = (e.getX()-50)/75;
             int y = (e.getY()-50)/75;
             Case c = d.getCaseAt(x,y);
+            
+          
 
 
             if (c.isOccupe() && aClickPiece) { // Si on clique sur une piece
-                p = getPieceAt(x, y);
+            	yPrec = y;
+            	p = getPieceAt(x, y);
                 verif = p.checkCase();
                 for (int i = 0; i <TAILLE ; i++) {
                     for (int j = 0; j < TAILLE ; j++) {
@@ -250,17 +254,9 @@ public class Jeu extends JPanel implements MouseListener {
             	aClickPiece = true;
             	checkEchec();
             	checkRoi(p);
-            	String couleur = null;
-            	if(p.getNom().equals("PB")&&y==0) {
-            		couleur = "B";
-            		promotionPion(x,y,couleur);
-            	}
-            	if(p.getNom().equals("PN")&&y==7) {
-            		couleur = "N";
-            		promotionPion(x,y,couleur);
-            	}
+            	checkPromotion(p, x, y);
             	
-            	if(p.getNom().equals("PB")&&y==4) {
+            	if(p.getNom().equals("PB")&&y==4&&yPrec==6) {
             		
             		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PN")) {
             			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -291,7 +287,7 @@ public class Jeu extends JPanel implements MouseListener {
             			}
             		}
             	}
-            	if(p.getNom().equals("PN")&&y==3) {
+            	if(p.getNom().equals("PN")&&y==3&&yPrec==1) {
             		
             		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PB")) {
             			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -328,6 +324,7 @@ public class Jeu extends JPanel implements MouseListener {
                 p.setPosition(x,y);
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
+                checkPromotion(p, x, y);
                 repaint();
                 aClickPiece = true;
                 checkEchec();
@@ -337,6 +334,18 @@ public class Jeu extends JPanel implements MouseListener {
         }
         
 
+    }
+    public void checkPromotion(Piece p, int x, int y) {
+    	String couleur = null;
+    	if(p.getNom().equals("PB")&&y==0) {
+    		System.out.println("prom");
+    		couleur = "B";
+    		promotionPion(x,y,couleur);
+    	}
+    	if(p.getNom().equals("PN")&&y==7) {
+    		couleur = "N";
+    		promotionPion(x,y,couleur);
+    	}
     }
 
     public void promotionPion(int x, int y, String couleur) {
