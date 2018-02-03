@@ -20,11 +20,23 @@ public class Jeu extends JPanel implements MouseListener {
     private Piece p;
     boolean[][] verif= new boolean[8][8];
     boolean aClickPiece = true;
-    private boolean echecNoir = false; 
-    private boolean echecBlanc = false; 
+    private static boolean echecNoir = false; 
+    private static boolean echecBlanc = false; 
+    private static boolean roqueB = false; 
+    private static boolean roqueN = false; 
+    private static boolean moveRB = false; 
+    private static boolean moveRN = false; 
 
 
     public Jeu() {
+        setOpaque(false);
+        setLayout(new BorderLayout());
+        this.addMouseListener(this);
+        Initialiser();
+        d.setCasesOccupees(listPiece);
+    }
+    
+    public Jeu(String s) {
         setOpaque(false);
         setLayout(new BorderLayout());
         this.addMouseListener(this);
@@ -90,13 +102,14 @@ public class Jeu extends JPanel implements MouseListener {
     }
 
     public boolean checkEchec() {
+
     	for(Piece p : listPiece) {
-    		
+    	
     		if(p.getNom().equals("RN"))
     			for(Piece p1 : listPiece) {
     				boolean[][] tabCases = p1.checkCase();
     				if(tabCases[p.getX()][p.getY()]) {
-    					System.out.println("Roi noir en echec"); 
+    					JOptionPane.showMessageDialog(this, "Roi noir en échec");
     					echecNoir = true; 
     				}
     				
@@ -105,7 +118,7 @@ public class Jeu extends JPanel implements MouseListener {
     			for(Piece p2 :listPiece) {
     				boolean[][] tabCasesBis = p2.checkCase();
     				if(tabCasesBis[p.getX()][p.getY()]) {
-    					System.out.println("Roi blanc en echec");
+    					JOptionPane.showMessageDialog(this, "Roi blanc en échec");
     					echecBlanc = true;
     				}
     				
@@ -134,6 +147,37 @@ public class Jeu extends JPanel implements MouseListener {
             }
         }
     }
+    
+    public void checkRoi(Piece p) {
+    	if(p.getNom().equals("RN"))
+    		moveRN = true; 
+    	if(p.getNom().equals("RB"))
+    		moveRB = true;
+    }
+    
+    public static boolean getMoveRB() {
+    	return moveRB;
+    }
+    
+    public static boolean getMoveRN() {
+    	return moveRN;
+    }
+    
+    public static boolean getEchecBlanc() {
+    	return echecBlanc;
+    }
+    
+    public static boolean getEchecNoir() {
+    	return echecNoir;
+    }
+    
+    public static boolean getRoqueB() {
+    	return roqueB;
+    }
+    
+    public static boolean getRoqueN() {
+    	return roqueN;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -159,22 +203,58 @@ public class Jeu extends JPanel implements MouseListener {
             }
 
             else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide
-                  p.setPosition(x,y);
-                  d.setCasesOccupees(listPiece);
-                  paintDeplacement(verif);
-                  repaint();
-                  aClickPiece = true;
-                  checkEchec();
+            	
+            	if(p.getNom().equals("RB")) {
+            		
+            		if(x==p.getX()-2) {
+            			
+            			listPiece.remove(getPieceAt(0,7));
+            			Tour tourb = new Tour(3, 7, "B",d);
+            			listPiece.add(tourb);
+            			roqueB = true; 
+            		}
+            		if(x==p.getX()+2) {
+            			
+            			listPiece.remove(getPieceAt(7,7));
+            			Tour tourb = new Tour(5, 7, "B",d);
+            			listPiece.add(tourb);
+            			roqueB = true; 
+            		}
+            	}
+            	if(p.getNom().equals("RN")) {
+            		
+            		if(x==p.getX()-2) {
+            			
+            			listPiece.remove(getPieceAt(0,0));
+            			Tour tourn = new Tour(3, 0, "N",d);
+            			listPiece.add(tourn);
+            			roqueN = true; 
+            		}
+            		if(x==p.getX()+2) {
+            			
+            			listPiece.remove(getPieceAt(7,0));
+            			Tour tourn = new Tour(5, 0, "N",d);
+            			listPiece.add(tourn);
+            			roqueN = true; 
+            		}
+            	}
+            	p.setPosition(x,y);
+            	d.setCasesOccupees(listPiece);
+            	paintDeplacement(verif);
+            	repaint();
+            	aClickPiece = true;
+            	checkEchec();
+            	checkRoi(p);
             }
             else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
                 listPiece.remove(getPieceAt(x,y));
-                //System.out.println("manger!!!!!!!!!!!!");
                 p.setPosition(x,y);
                 d.setCasesOccupees(listPiece);
                 paintDeplacement(verif);
                 repaint();
                 aClickPiece = true;
                 checkEchec();
+                checkRoi(p);
                 
             }
         }

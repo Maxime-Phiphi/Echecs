@@ -40,9 +40,14 @@ public class Menu extends Fenetre{
 	
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getActionCommand().equals("j1")){
-		
+			try {
+			FenetreJeu f = new FenetreJeu();
+			f.setVisible(true);
+			dispose();
+			}catch(Exception e) {
 				
 			}
+		}
 		if (evt.getActionCommand().equals("j2")){
 			
 			

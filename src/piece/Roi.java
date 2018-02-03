@@ -1,6 +1,7 @@
 package piece;
 
 import damier.Damier;
+import jeu.Jeu;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -31,7 +32,7 @@ public class Roi extends Piece {
         boolean[][] verif = new boolean[8][8];
         String col = super.getCouleur();
         
-        if(getY()>0&&d.getCaseAt(getX(), getY()-1).getOccupe()!=col) 	
+        if(getY()>0&&d.getCaseAt(getX(), getY()-1).getOccupe()!=col) verif[getX()][getY() - 1] = true;	
         if(getY()<7&&d.getCaseAt(getX(), getY()+1).getOccupe()!=col) verif[getX()][getY() + 1] = true;
         if(getX()>0&&d.getCaseAt(getX()-1, getY()).getOccupe()!=col) verif[getX()-1][getY()] = true; 
         if(getX()<7&&d.getCaseAt(getX()+1, getY()).getOccupe()!=col) verif[getX()+1][getY()] = true;
@@ -40,9 +41,36 @@ public class Roi extends Piece {
         if(getX()<7&&getY()<7&&d.getCaseAt(getX()+1, getY()+1).getOccupe()!=col) verif[getX()+1][getY() + 1] = true; 
         if(getX()>0&&getY()<7&&d.getCaseAt(getX()-1, getY()+1).getOccupe()!=col)  verif[getX()-1][getY() + 1] = true;
             
-        //roque   
+        roque(verif, col); 
 
         
         return verif;
+    }
+    
+    public void roque(boolean[][] tab, String col){
+    		
+    		
+    		if(col=="B"&&!Jeu.getMoveRB()) {
+    			if(!Jeu.getRoqueB()&&getY()==7&&getX()==4) {
+    				if(d.getCaseAt(getX()-1, getY()).getOccupe()==""&&d.getCaseAt(getX()-2, getY()).getOccupe()==""&&d.getCaseAt(getX()-3, getY()).getOccupe()=="") {
+    					tab[getX()-2][getY()] = true;
+    				}
+    				if(d.getCaseAt(getX()+1, getY()).getOccupe()==""&&d.getCaseAt(getX()+2, getY()).getOccupe()=="") {
+    					tab[getX()+2][getY()] = true;
+    				}
+    			}
+    		}
+    		else if(col=="N"&&!Jeu.getMoveRN()){
+    			
+    			if(!Jeu.getRoqueN()&&getY()==0&&getX()==4) {
+    				if(d.getCaseAt(getX()-1, getY()).getOccupe()==""&&d.getCaseAt(getX()-2, getY()).getOccupe()==""&&d.getCaseAt(getX()-3, getY()).getOccupe()=="") {
+    					tab[getX()-2][getY()] = true;
+    				}
+    				if(d.getCaseAt(getX()+1, getY()).getOccupe()==""&&d.getCaseAt(getX()+2, getY()).getOccupe()=="") {
+    					tab[getX()+2][getY()] = true;
+    				}
+    			}
+    		}
+    		
     }
 }

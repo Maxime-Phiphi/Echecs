@@ -7,8 +7,8 @@ public class Test {
 		
 			//Menu m = new Menu();
 			//m.setVisible(true);
-		FenetreJeu f = new FenetreJeu();
-		f.setVisible(true);
+		Menu m = new Menu();
+		m.setVisible(true);
 		
 	}
 

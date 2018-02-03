@@ -38,7 +38,7 @@ public class Pion extends Piece {
                 verif[getX() - 1][getY() - 1] = true;
             if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()+ 1,getY()-1).getOccupe()=="N") // diago droite
                 verif[getX() + 1][getY() - 1] = true;
-            if (getY() == 6&&!d.getCaseAt(getX(),getY()-2).isOccupe()) // si c'est son premier coup il peut avancer de 2
+            if (getY() == 6&&!d.getCaseAt(getX(),getY()-2).isOccupe()&&!d.getCaseAt(getX(),getY()-1).isOccupe()) // si c'est son premier coup il peut avancer de 2
                 verif[getX()][getY() - 2] = true;
         }
         else {
@@ -48,7 +48,7 @@ public class Pion extends Piece {
                 verif[getX() - 1][getY() + 1] = true;
             if (outBounds(getY())&&outBounds(getX())&&d.getCaseAt(getX()+1,getY()+ 1).getOccupe()=="B") // diago droite
                 verif[getX() + 1][getY() + 1] = true;
-            if (getY() == 1&&!d.getCaseAt(getX(),getY()+2).isOccupe()) // si c'est son premier coup il peut avancer de 2
+            if (getY() == 1&&!d.getCaseAt(getX(),getY()+2).isOccupe()&&!d.getCaseAt(getX(),getY()+1).isOccupe()) // si c'est son premier coup il peut avancer de 2
                 verif[getX()][getY() + 2] = true;
         }
         return verif;
