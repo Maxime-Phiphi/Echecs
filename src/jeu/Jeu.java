@@ -200,6 +200,10 @@ public class Jeu extends JPanel implements MouseListener {
                 }
                 paintDeplacement(verif);
                 aClickPiece = false;
+                if(!p.aucunDeplacementPossible(verif)) {
+                	JOptionPane.showMessageDialog(this, "Cette pièce ne peut aller nulle part");
+                	aClickPiece = true;
+                }
             }
 
             else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide

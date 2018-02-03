@@ -291,5 +291,17 @@ public abstract class Piece implements CheckDeplacement{
 		return verif;
 
 	}
+	public boolean aucunDeplacementPossible(boolean[][] tab) {
+		boolean retour = false; 
+		for(boolean[] col: tab) {
+			for(boolean b: col) {
+				if(b) {
+					retour = true; 
+				}
+			}
+			
+		}
+		return retour;
+	}
 
 }
