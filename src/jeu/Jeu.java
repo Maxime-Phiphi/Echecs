@@ -250,6 +250,16 @@ public class Jeu extends JPanel implements MouseListener {
             	aClickPiece = true;
             	checkEchec();
             	checkRoi(p);
+            	String couleur = null;
+            	if(p.getNom().equals("PB")&&y==0) {
+            		couleur = "B";
+            		promotionPion(x,y,couleur);
+            	}
+            	if(p.getNom().equals("PN")&&y==7) {
+            		couleur = "N";
+            		promotionPion(x,y,couleur);
+            	}
+            	
             	if(p.getNom().equals("PB")&&y==4) {
             		
             		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PN")) {
@@ -329,6 +339,51 @@ public class Jeu extends JPanel implements MouseListener {
 
     }
 
+    public void promotionPion(int x, int y, String couleur) {
+    	
+    	Object[] options = {"Reine",
+                "Tour",
+                "Fou",
+                "Cavalier"};
+		int choix = JOptionPane.showOptionDialog(this,
+			    "En quelle pièce voulez vous promouvoir votre pion ?",
+			    "Promotion du pion",
+			    JOptionPane.YES_NO_CANCEL_OPTION,
+			    JOptionPane.QUESTION_MESSAGE,
+			    null,
+			    options, null);
+		switch(choix) {
+		case 0:
+			listPiece.remove(getPieceAt(x,y));
+			Reine reinen = new Reine(x,y,couleur, d);
+			listPiece.add(reinen);
+			break;
+		case 1: 
+			listPiece.remove(getPieceAt(x,y));
+			Tour tourn = new Tour(x,y,couleur, d);
+			listPiece.add(tourn);
+			break;
+		case 2:
+			listPiece.remove(getPieceAt(x,y));
+			Fou foun = new Fou(x,y,couleur, d);
+			listPiece.add(foun);
+			break;
+		case 3: 
+			listPiece.remove(getPieceAt(x,y));
+			Cavalier cavaliern = new Cavalier(x,y,couleur, d);
+			listPiece.add(cavaliern);
+			break;
+		default: 
+			listPiece.remove(getPieceAt(x,y));
+			Reine rn = new Reine(x,y,couleur, d);
+			listPiece.add(rn);
+			break;
+		}
+		
+		d.setCasesOccupees(listPiece);
+        repaint();
+        checkEchec();
+    }
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
