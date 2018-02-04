@@ -29,6 +29,7 @@ public abstract class Case {
     public String getOccupe() {
     	return occupe;
     }
+    
 
     public void setOccupe(String occupe) {
         this.occupe = occupe;

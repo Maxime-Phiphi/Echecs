@@ -584,9 +584,9 @@ public class JeuIA extends JPanel implements MouseListener {
     					for(int j = 0; j<verif[0].length;j++) {
     						double rd2 = Math.random();
     						if(verif[j][i]&&rd2<0.05&&!move) {
-    							/*if(getPieceAt(j,i)) {
+    							if(d.getCaseAt(j, i)!=null) {
     								listPiece.remove(getPieceAt(j,i));
-    							}*/
+    							}
     							System.out.println("hello");
     			                	p.setPosition(j,i);
     			                	d.setCasesOccupees(listPiece);
