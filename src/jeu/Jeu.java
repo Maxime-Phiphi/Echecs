@@ -1,43 +1,44 @@
 package jeu;
 
-import damier.Case;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import damier.Damier;
 import piece.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import static damier.Damier.TAILLE;
-
-public class Jeu extends JPanel implements MouseListener {
-	
-
+@XStreamAlias("jeu")
+public class Jeu {
+    @XStreamOmitField
     private ArrayList<Piece> listPiece = new ArrayList<>();
     private Damier d = new Damier();
     private Piece p;
     boolean[][] verif= new boolean[8][8];
     boolean aClickPiece = true;
 
-
     public Jeu() {
-        setOpaque(false);
-        setLayout(new BorderLayout());
-        this.addMouseListener(this);
         Initialiser();
         d.setCasesOccupees(listPiece);
     }
 
-	public void Initialiser(){
+
+    public void Initialiser(){
 
         for(int i = 0; i< Grille.getTaille(); i++) {
-        	
+
             Pion pionn = new Pion(i, 1, "N",d);
             Pion pionb = new Pion(i, 6, "B",d);
-          listPiece.add(pionn);
-          listPiece.add(pionb);
+            listPiece.add(pionn);
+            listPiece.add(pionb);
 
         }
 
@@ -75,14 +76,6 @@ public class Jeu extends JPanel implements MouseListener {
 
     }
 
-    public void paintComponent(Graphics g) {
-	    d.paintComponent(g);
-        for (Piece p : getListPiece()) {
-            p.paintComponent(g);
-            repaint();
-        }
-    }
-
     public ArrayList<Piece> getListPiece() {
         return listPiece;
     }
@@ -97,89 +90,59 @@ public class Jeu extends JPanel implements MouseListener {
         }
         return null;
     }
-    public void paintDeplacement(boolean[][] verif) {
-        for (int i = 0; i< TAILLE; i++){
-            for(int j = 0; j< TAILLE; j++){
-             if(verif[i][j]){
-                 Case c = d.getCaseAt(i,j);
-                 c.changeCouleur();
-                 repaint();
-             }
-            }
+
+    public Damier getD() {
+        return d;
+    }
+
+    public Piece getP() {
+        return p;
+    }
+
+    public boolean[][] getVerif() {
+        return verif;
+    }
+
+    public boolean isaClickPiece() {
+        return aClickPiece;
+    }
+
+    public void setListPiece(ArrayList<Piece> listPiece) {
+        this.listPiece = listPiece;
+    }
+
+    public void setD(Damier d) {
+        this.d = d;
+    }
+
+    public void setP(Piece p) {
+        this.p = p;
+    }
+
+    public void setVerif(boolean[][] verif) {
+        this.verif = verif;
+    }
+
+    public void setaClickPiece(boolean aClickPiece) {
+        this.aClickPiece = aClickPiece;
+    }
+
+    public void serialize(File file){
+        // Instanciation de la classe XStream
+        XStream xstream = new XStream(new JettisonMappedXmlDriver());
+        // Convertion du contenu de l'objet article en XML
+        String xml = xstream.toXML(this);
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(file);
+            fileWriter.write(xml);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(e.getButton()==1){
 
-            int x = (e.getX()-50)/75;
-            int y = (e.getY()-50)/75;
-            Case c = d.getCaseAt(x,y);
-
-
-            if (c.isOccupe() && aClickPiece) { // Si on clique sur une piece
-                p = getPieceAt(x, y);
-                verif = p.checkCase(listPiece);
-                for (int i = 0; i <TAILLE ; i++) {
-                    for (int j = 0; j < TAILLE ; j++) {
-                        System.out.println(i + " "+ j + " "+  verif[i][j]);
-                    }
-
-                }
-                paintDeplacement(verif);
-                aClickPiece = false;
-            }
-
-            else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide
-                  p.setPosition(x,y);
-                  d.setCasesOccupees(listPiece);
-                  paintDeplacement(verif);
-                  repaint();
-                  aClickPiece = true;
-            }
-            else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
-                listPiece.remove(getPieceAt(x,y));
-                p.setPosition(x,y);
-                d.setCasesOccupees(listPiece);
-                paintDeplacement(verif);
-                repaint();
-                aClickPiece = true;
-            }
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
-
-    //	public void setPieceVide(int x, int y){
-//		tabPiece[x][y]=null;
-//	}
-//
-//	public void setPiece(int x, int y, Piece p) {
-//		tabPiece[x][y]=p;
-//	}
-//
-//	public static Piece[][] getTabPiece(){
-//		return tabPiece;
-//	}
 
 }

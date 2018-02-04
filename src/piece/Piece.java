@@ -1,11 +1,15 @@
 package piece;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import damier.Damier;
 import jeu.Jeu;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public abstract class Piece implements CheckDeplacement{
+@XStreamAlias("piece")
+public abstract class Piece implements CheckDeplacement,Serializable{
     private int COTECASE = 75;
     protected Damier d;
 
@@ -14,6 +18,8 @@ public abstract class Piece implements CheckDeplacement{
     private String couleur;
     private int coordX;
     private int coordY;
+
+    @XStreamOmitField
     private BufferedImage img = null;
 
 
