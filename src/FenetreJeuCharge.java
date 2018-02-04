@@ -6,7 +6,12 @@ import java.io.IOException;
 
 class FenetreJeuCharge extends Fenetre{
 
-		private Jeu j = new Jeu("config.txt");
+	String s = (String)JOptionPane.showInputDialog(
+            this,
+            "Nom du fichier :",
+            "Nom du fichier",
+            JOptionPane.PLAIN_MESSAGE);
+		private Jeu j = new Jeu(s);
 		private JPanel container = new JPanel();
 		
 		public FenetreJeuCharge() throws IOException{
