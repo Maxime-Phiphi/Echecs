@@ -33,6 +33,8 @@ public class Jeu extends JPanel implements MouseListener {
     private static boolean moveRB = false; 
     private static boolean moveRN = false; 
     private static int yPrec = 0;
+    private static int xPrec = 0;
+    private static String playerColor = "B";
 
 
     public Jeu() throws IOException{
@@ -408,11 +410,13 @@ public class Jeu extends JPanel implements MouseListener {
             int y = (e.getY()-50)/75;
             Case c = d.getCaseAt(x,y);
             
-          
-
-
-            if (c.isOccupe() && aClickPiece) { // Si on clique sur une piece
+            //System.out.println("Blanc commence");
+            System.out.println(playerColor);
+           
+            if (c.isOccupe() && aClickPiece ) { // Si on clique sur une piece
+            	if(getPieceAt(x,y).getCouleur()==playerColor) {
             	yPrec = y;
+            	xPrec = x;
             	p = getPieceAt(x, y);
                 verif = p.checkCase();
                 for (int i = 0; i <TAILLE ; i++) {
@@ -423,10 +427,14 @@ public class Jeu extends JPanel implements MouseListener {
                 }
                 paintDeplacement(verif);
                 aClickPiece = false;
+                
                 if(!p.aucunDeplacementPossible(verif)) {
                 	JOptionPane.showMessageDialog(this, "Cette pièce ne peut aller nulle part");
                 	aClickPiece = true;
                 }
+            	}else
+            		JOptionPane.showMessageDialog(this, "Ce n'est pas a toi de jouer");
+            		
             }
 
             else if (!c.isOccupe() && verif[x][y]){ // si on clique sur une case verte vide
@@ -466,6 +474,7 @@ public class Jeu extends JPanel implements MouseListener {
             			roqueN = true; 
             		}
             	}
+            	
             	p.setPosition(x,y);
             	d.setCasesOccupees(listPiece);
             	paintDeplacement(verif);
@@ -473,6 +482,7 @@ public class Jeu extends JPanel implements MouseListener {
             	aClickPiece = true;
             	checkEchec();
             	checkRoi(p);
+            	changeColor(playerColor);
             	checkPromotion(p, x, y);
             	
             	if(p.getNom().equals("PB")&&y==4&&yPrec==6) {
@@ -539,6 +549,7 @@ public class Jeu extends JPanel implements MouseListener {
             	}
             }
             else if (c.isOccupe() && verif[x][y]){ // si on mange (donc on lcique sur une case verte avec quelqu'un dedans)
+            	
                 listPiece.remove(getPieceAt(x,y));
                 p.setPosition(x,y);
                 d.setCasesOccupees(listPiece);
@@ -548,9 +559,12 @@ public class Jeu extends JPanel implements MouseListener {
                 aClickPiece = true;
                 checkEchec();
                 checkRoi(p);
+                changeColor(playerColor);
+                
                 
             }
-        }
+     
+        }	
         
 
     }
@@ -566,7 +580,12 @@ public class Jeu extends JPanel implements MouseListener {
     		promotionPion(x,y,couleur);
     	}
     }
-
+    public void changeColor(String s) {
+    	if(s=="B")
+    		playerColor="N";
+    	if(s=="N")
+    		playerColor="B";
+    }
     public void promotionPion(int x, int y, String couleur) {
     	
     	Object[] options = {"Reine",

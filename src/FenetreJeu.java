@@ -9,6 +9,7 @@ class FenetreJeu extends Fenetre{
 		private Jeu j = new Jeu();
 		private JPanel container = new JPanel();
 		
+		
 		public FenetreJeu() throws IOException{
 			container.add(j);
 			container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
