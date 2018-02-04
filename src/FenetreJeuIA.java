@@ -1,12 +1,12 @@
 import damier.Damier;
 import jeu.Jeu;
-
+import jeu.JeuIA;
 import javax.swing.*;
 import java.io.IOException;
 
 class FenetreJeuIA extends Fenetre{
 
-		private Jeu j = new Jeu("IA");
+		private JeuIA j = new JeuIA();
 		private JPanel container = new JPanel();
 		
 		public FenetreJeuIA() throws IOException{

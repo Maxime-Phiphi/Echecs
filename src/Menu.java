@@ -49,7 +49,13 @@ public class Menu extends Fenetre{
 			}
 		}
 		if (evt.getActionCommand().equals("j2")){
-			
+			try {
+				FenetreJeuIA f = new FenetreJeuIA();
+				f.setVisible(true);
+				dispose();
+				}catch(Exception e) {
+					
+				}
 			
 				
 			}
