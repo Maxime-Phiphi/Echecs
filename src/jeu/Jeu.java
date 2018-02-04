@@ -266,6 +266,31 @@ public class Jeu extends JPanel implements MouseListener {
     	
     	
     }
+    
+    public void checkFinPartie() {
+    	boolean finB = true; 
+    	boolean finN = true; 
+    	
+    	for(Piece p: listPiece) {
+    		if(p.getNom().equals("RB"))
+    			finB = false; 
+    	}
+    	for(Piece p: listPiece) {
+    		if(p.getNom().equals("RN"))
+    			finN = false; 
+    	}
+    	if(finN) {
+    		JOptionPane.showMessageDialog(this, "Noir a perdu");
+    		
+    		
+    	}
+    		if(finB) {
+    		JOptionPane.showMessageDialog(this, "Blanc a perdu");
+    		
+    	}
+    		
+    }
+    
 	public void Initialiser(){
 
         for(int i = 0; i< Grille.getTaille(); i++) {
@@ -566,7 +591,7 @@ public class Jeu extends JPanel implements MouseListener {
      
         }	
         
-
+        checkFinPartie();
     }
     public void checkPromotion(Piece p, int x, int y) {
     	String couleur = null;
