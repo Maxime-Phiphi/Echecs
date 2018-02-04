@@ -487,8 +487,8 @@ public class JeuIA extends JPanel implements MouseListener {
             	if(p.getNom().equals("PB")&&y==4&&yPrec==6) {
             		
             		if(x<7&&getPieceAt(x+1, y)!=null&&getPieceAt(x+1, y).getNom().equals("PN")) {
-            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
-            			if(result==0) {
+            			double rd = Math.random();
+            			if(rd<0.5) {
             				listPiece.remove(getPieceAt(x+1,y));
             				listPiece.remove(getPieceAt(x,y));
             				Pion pionn = new Pion(x, y+1, "N",d);
@@ -501,8 +501,8 @@ public class JeuIA extends JPanel implements MouseListener {
             			}
             		}
             		if(x>0&&getPieceAt(x-1, y)!=null&&getPieceAt(x-1, y).getNom().equals("PN")) {
-            			int result = JOptionPane.showConfirmDialog((Component) null, "Voulez-vous le prendre en passant","alert", JOptionPane.YES_NO_CANCEL_OPTION);
-            			if(result==0) {
+            			double result = Math.random();
+            			if(result<0.5) {
             				listPiece.remove(getPieceAt(x-1,y));
             				listPiece.remove(getPieceAt(x,y));
             				Pion pionn = new Pion(x, y+1, "N",d);
